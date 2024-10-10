@@ -7,6 +7,7 @@ Permettre au cylindre de changer de forme (ensemble de formes possibles limité 
 Ca pourrait permettre de déclencher des mécanismes:
 - Rotation sur soi-même en changeant de forme en cours de rotation pour gagner de la vitesse et taper très fort sur quelque chose
 - Passer des obstacles en utilisant le polymorphisme (ex: fente étroite demandant de rouler en forme cylindre moins allongé)
+- Associer une forme et un objet pour obtenir une fonctionnalité supplémentaire, e.g. cône + chaîne ou  barbelé = foreuse
 
 
 ### Faire rouler le cylindre
