@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 
 const SPEED = 15 # en m/s
-const ROTATION_SPEED = 45 * PI / 180 # en rad/s
+const ROTATION_SPEED = 90 * PI / 180 # en rad/s
 
 
 func _physics_process(delta: float) -> void:

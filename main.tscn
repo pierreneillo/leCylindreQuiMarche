@@ -36,6 +36,7 @@ map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 [node name="sol" type="StaticBody3D" parent="map"]
 
 [node name="Mesh" type="MeshInstance3D" parent="map/sol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00927019, 0)
 mesh = SubResource("PlaneMesh_aqk40")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/sol"]
