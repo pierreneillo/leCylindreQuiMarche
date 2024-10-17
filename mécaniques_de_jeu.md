@@ -1,6 +1,7 @@
 ## Mécaniques de jeu se basant sur la géométrie
 
 -Créer des puzzles pour chaque fin de zones de la map, utilisant les nouvelles mécaniques fondées sur la géométrie apprises dans la zone (et un puzzle vénère de fin de jeu utilisant tout)
+-Accéder à chaque zones de la map grâce à des changements de volumes spécifiques qu'il faudrait débloquer
 
 ### Polymorphisme
 
