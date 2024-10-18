@@ -25,7 +25,8 @@ Ajouter de l'inertie
 ### Engrenages et mécanismes
 
 - Utiliser la forme du cylindre pour activer des mécanismes, e.g. relier deux engrenages parallèles en plaçant le cylindre perpendiculaire à ceux-ci pour faire tourner l'un si l'autre tourne (un peu inspiré de zelda totk)
--Ajouter de la durabilité aux items qu'on peut merge (cf ma proposition pour interface: le nombre qu'on en a crée une barre de dura affichée dans la molette, qui permet de ne pas s'embêter à changer h24 d'items)
+- Ajouter de la durabilité aux items qu'on peut merge (cf ma proposition pour interface: le nombre qu'on en a crée une barre de dura affichée dans la molette, qui permet de ne pas s'embêter à changer h24 d'items)
+- Utiliser la forme du cylindre pour faire des puzzles (comme pour les boîtes pour les enfants avec des trous de différentes formes)
 
 ### Restreidre l'exploration du monde en débloquant des compétences au cours du jeu
 
