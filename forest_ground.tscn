@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2b3l335oot1f"]
+
+[ext_resource type="PackedScene" uid="uid://dc8hvhfltv8qy" path="res://forest_ground.blend" id="1_ah52n"]
+
+[node name="forest_ground" instance=ExtResource("1_ah52n")]
