@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3yc8d85x7fy1"]
 
 [ext_resource type="PackedScene" uid="uid://d2b3l335oot1f" path="res://forest_ground.tscn" id="1_hbtf6"]
-[ext_resource type="Script" path="res://camera_3d.gd" id="3_8r2cy"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_8r2cy"]
 [ext_resource type="PackedScene" uid="uid://cplap5jy4535n" path="res://cylindre.tscn" id="6_in5hq"]
 
 [node name="main" type="Node3D"]
@@ -23,5 +23,5 @@ current = true
 size = 14.625
 near = 0.001
 script = ExtResource("3_8r2cy")
-DIST_MIN = 5.0
-DIST_MAX = 20.0
+DIST_MAX = 50.0
+V_RPS = 0.5

@@ -13,6 +13,7 @@ class Morph:
 	var rotation_speed : float = 0
 	var speed_incr : int = 0
 	var max_speed : int = 0
+	var inertia_time = .2
 
 
 	func _init(_name:String, _speed:int, _rotation_speed:float, _speed_incr:int, _max_speed : int) -> void:
@@ -47,7 +48,6 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	
 	if morph.name == "CYLINDER_UPRIGHT" :
 		# TODO: Changer le système de mouvement (peut-être contrôler l'accélération
 		# plutôt que la vitesse) pour rendre le mouvement pus fluide et include de l'inertie
@@ -70,25 +70,30 @@ func _physics_process(delta: float) -> void:
 		
 		transform.basis = Basis.looking_at(direction,Vector3.UP)
 		
-		var prodScal = previousDirection.dot(sens*direction)
-		if prodScal>0: #meme direction globale
-			if morph.speed<morph.max_speed:
-				morph.speed+=morph.speed_incr
-			velocity = sens * morph.speed  * direction.normalized()
-		elif prodScal<0: #direction globale opposee
-			if morph.speed>0:
-				morph.speed-=morph.speed_incr
-			velocity=morph.speed * previousDirection.normalized()
-		else : #prod scalaire nul
-			if previousDirection==Vector3.ZERO and direction!=Vector3.ZERO: #veut rentrer en mouvement
-				morph.speed+=morph.speed_incr
-				velocity = sens * morph.speed  * direction.normalized()
-			elif previousDirection!=Vector3.ZERO and direction==Vector3.ZERO: #veut s'arreter 
-				morph.speed-=morph.speed_incr
-				velocity=morph.speed*previousDirection.normalized()
-			elif previousDirection!=Vector3.ZERO and direction!=Vector3.ZERO: #vecteurs perpendiculaires
-				morph.speed-=morph.speed_incr
-				velocity=morph.speed*previousDirection.normalized()
+		var target_velocity = sens * morph.max_speed  * direction.normalized()
+		
+		print(target_velocity,velocity)
+		velocity = velocity + (target_velocity - velocity) * delta / morph.inertia_time
+		
+		#var prodScal = previousDirection.dot(sens*direction)
+		#if prodScal>0: #meme direction globale
+			#if morph.speed<morph.max_speed:
+				#morph.speed+=morph.speed_incr
+			#velocity = sens * morph.speed  * direction.normalized()
+		#elif prodScal<0: #direction globale opposee
+			#if morph.speed>0:
+				#morph.speed-=morph.speed_incr
+			#velocity=morph.speed * previousDirection.normalized()
+		#else : #prod scalaire nul
+			#if previousDirection==Vector3.ZERO and direction!=Vector3.ZERO: #veut rentrer en mouvement
+				#morph.speed+=morph.speed_incr
+				#velocity = sens * morph.speed  * direction.normalized()
+			#elif previousDirection!=Vector3.ZERO and direction==Vector3.ZERO: #veut s'arreter 
+				#morph.speed-=morph.speed_incr
+				#velocity=morph.speed*previousDirection.normalized()
+			#elif previousDirection!=Vector3.ZERO and direction!=Vector3.ZERO: #vecteurs perpendiculaires
+				#morph.speed-=morph.speed_incr
+				#velocity=morph.speed*previousDirection.normalized()
 		
 		move_and_slide()
 		morph.move()
