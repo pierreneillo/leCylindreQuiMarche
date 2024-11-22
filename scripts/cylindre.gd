@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 var MORPHS = []
 var morph = 0
+
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var cam=null
 var dirCam=null
 
@@ -22,12 +24,13 @@ class Morph:
 	var inertia_time = .2
 
 
-	func _init(_name:String, _speed:int, _rotation_speed:float, _speed_incr:int, _max_speed : int) -> void:
+	func _init(_name:String, _speed:int, _rotation_speed:float, _speed_incr:int, _max_speed : int,inertia_time) -> void:
 		self.name = _name
 		self.speed = _speed
 		self.rotation_speed = _rotation_speed
 		self.speed_incr = _speed_incr 
 		self.max_speed = _max_speed
+		self.inertia_time = inertia_time
 		
 	func move() -> void:
 		pass
@@ -38,36 +41,33 @@ func _ready():
 	dirCam=cam.position
 	const _morphs = {
 		"CYLINDER_UPRIGHT" : {
-			"MAX_SPEED" : 5,
+			"MAX_SPEED" : 10,
 			"SPEED":0,
 			"SPEED_INCR":1, #acceleration
-			"ROTATION_SPEED" : 100 * PI/180
+			"ROTATION_SPEED" : 100 * PI/180,
+			"INERTIA" : .2
 		},
 		"CYLINDER_ROLLING" : {
 			"MAX_SPEED" : 15,
 			"SPEED":0,
 			"SPEED_INCR":1, #acceleration
-			"ROTATION_SPEED" : 30 * PI/180
+			"ROTATION_SPEED" : 30 * PI/180,
+			"INERTIA": .2
 		}
 	};
 	for morph_name in _morphs:
-		var m = Morph.new(morph_name,_morphs[morph_name]["SPEED"],_morphs[morph_name]["ROTATION_SPEED"],_morphs[morph_name]["SPEED_INCR"],_morphs[morph_name]["MAX_SPEED"])
+		var m = Morph.new(morph_name,_morphs[morph_name]["SPEED"],_morphs[morph_name]["ROTATION_SPEED"],_morphs[morph_name]["SPEED_INCR"],_morphs[morph_name]["MAX_SPEED"],_morphs[morph_name]["INERTIA"])
 		MORPHS.append(m)
 	morph = MORPHS[0]
 
 
 func _physics_process(delta: float) -> void:
 	if morph.name == "CYLINDER_UPRIGHT" :
-		# TODO: Changer le système de mouvement (peut-être contrôler l'accélération
-		# plutôt que la vitesse) pour rendre le mouvement pus fluide et include de l'inertie
-		# mon idée : on va calculer le produit scalaire entre le vecteur direction actuel et celui demandé par le joueur, le signe donnera s'il faut s'arreter ou non
-		# ainsi, pour une valeur positive pas d'arret, et pour negative (ou nulle, si le joueur veut simplement s'arreter) il faut faire un arret 
-		# un arret signifie une diminution de speed jusqu'a 0 par un increment definit dans _morph
 		var sens := 0
 		var direction = - cam.transform.basis.z.normalized()
 		direction=Vector3(direction.x,0,direction.z)
 		var previousDirection=direction
-		
+		var vy = velocity.y
 		# Gestion du mouvement
 		if Input.is_action_pressed("forwards"):
 			sens = 1
@@ -81,28 +81,10 @@ func _physics_process(delta: float) -> void:
 		
 		var target_velocity = sens * morph.max_speed  * direction.normalized()
 		
-		print(target_velocity,velocity)
 		velocity = velocity + (target_velocity - velocity) * delta / morph.inertia_time
 		
-		#var prodScal = previousDirection.dot(sens*direction)
-		#if prodScal>0: #meme direction globale
-			#if morph.speed<morph.max_speed:
-				#morph.speed+=morph.speed_incr
-			#velocity = sens * morph.speed  * direction.normalized()
-		#elif prodScal<0: #direction globale opposee
-			#if morph.speed>0:
-				#morph.speed-=morph.speed_incr
-			#velocity=morph.speed * previousDirection.normalized()
-		#else : #prod scalaire nul
-			#if previousDirection==Vector3.ZERO and direction!=Vector3.ZERO: #veut rentrer en mouvement
-				#morph.speed+=morph.speed_incr
-				#velocity = sens * morph.speed  * direction.normalized()
-			#elif previousDirection!=Vector3.ZERO and direction==Vector3.ZERO: #veut s'arreter 
-				#morph.speed-=morph.speed_incr
-				#velocity=morph.speed*previousDirection.normalized()
-			#elif previousDirection!=Vector3.ZERO and direction!=Vector3.ZERO: #vecteurs perpendiculaires
-				#morph.speed-=morph.speed_incr
-				#velocity=morph.speed*previousDirection.normalized()
+		if not is_on_floor():
+			velocity.y = vy -  gravity * delta
 		
 		move_and_slide()
 		morph.move()
