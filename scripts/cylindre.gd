@@ -2,6 +2,12 @@ extends CharacterBody3D
 
 var MORPHS = []
 var morph = 0
+var cam=null
+var dirCam=null
+
+
+
+
 
 class Morph:
 	"""Classe représentant les différentes formes du cylindre.
@@ -27,12 +33,15 @@ class Morph:
 		pass
 
 func _ready():
+	cam= get_node("../Camera3D")
+	print(cam)
+	dirCam=cam.position
 	const _morphs = {
 		"CYLINDER_UPRIGHT" : {
 			"MAX_SPEED" : 5,
 			"SPEED":0,
 			"SPEED_INCR":1, #acceleration
-			"ROTATION_SPEED" : 150 * PI/180
+			"ROTATION_SPEED" : 100 * PI/180
 		},
 		"CYLINDER_ROLLING" : {
 			"MAX_SPEED" : 15,
@@ -55,7 +64,8 @@ func _physics_process(delta: float) -> void:
 		# ainsi, pour une valeur positive pas d'arret, et pour negative (ou nulle, si le joueur veut simplement s'arreter) il faut faire un arret 
 		# un arret signifie une diminution de speed jusqu'a 0 par un increment definit dans _morph
 		var sens := 0
-		var direction := - transform.basis.z.normalized()
+		var direction = - cam.transform.basis.z.normalized()
+		direction=Vector3(direction.x,0,direction.z)
 		var previousDirection=direction
 		
 		# Gestion du mouvement
@@ -65,9 +75,8 @@ func _physics_process(delta: float) -> void:
 			sens = -1
 		if Input.is_action_pressed("left"):
 			direction = direction.rotated(Vector3.UP, morph.rotation_speed * delta)
-		elif Input.is_action_pressed("right"):
+		if Input.is_action_pressed("right"):
 			direction = direction.rotated(Vector3.UP, -morph.rotation_speed * delta)
-		
 		transform.basis = Basis.looking_at(direction,Vector3.UP)
 		
 		var target_velocity = sens * morph.max_speed  * direction.normalized()
