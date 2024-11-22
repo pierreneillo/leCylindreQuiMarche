@@ -3,6 +3,8 @@ extends CharacterBody3D
 var MORPHS = []
 var morph = 0
 
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 class Morph:
 	"""Classe représentant les différentes formes du cylindre.
 	L'idée serait de l'utiliser pour avoir des méthodes et attributs standard (qui ne dépendent pas du Morph) mais qui peuvent agir différement:
@@ -57,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		var sens := 0
 		var direction := - transform.basis.z.normalized()
 		var previousDirection=direction
-		
+		var vy = velocity.y
 		# Gestion du mouvement
 		if Input.is_action_pressed("forwards"):
 			sens = 1
@@ -75,25 +77,8 @@ func _physics_process(delta: float) -> void:
 		print(target_velocity,velocity)
 		velocity = velocity + (target_velocity - velocity) * delta / morph.inertia_time
 		
-		#var prodScal = previousDirection.dot(sens*direction)
-		#if prodScal>0: #meme direction globale
-			#if morph.speed<morph.max_speed:
-				#morph.speed+=morph.speed_incr
-			#velocity = sens * morph.speed  * direction.normalized()
-		#elif prodScal<0: #direction globale opposee
-			#if morph.speed>0:
-				#morph.speed-=morph.speed_incr
-			#velocity=morph.speed * previousDirection.normalized()
-		#else : #prod scalaire nul
-			#if previousDirection==Vector3.ZERO and direction!=Vector3.ZERO: #veut rentrer en mouvement
-				#morph.speed+=morph.speed_incr
-				#velocity = sens * morph.speed  * direction.normalized()
-			#elif previousDirection!=Vector3.ZERO and direction==Vector3.ZERO: #veut s'arreter 
-				#morph.speed-=morph.speed_incr
-				#velocity=morph.speed*previousDirection.normalized()
-			#elif previousDirection!=Vector3.ZERO and direction!=Vector3.ZERO: #vecteurs perpendiculaires
-				#morph.speed-=morph.speed_incr
-				#velocity=morph.speed*previousDirection.normalized()
+		if not is_on_floor():
+			velocity.y = vy -  gravity * delta
 		
 		move_and_slide()
 		morph.move()
