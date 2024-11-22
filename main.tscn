@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3yc8d85x7fy1"]
+[gd_scene load_steps=5 format=3 uid="uid://c3yc8d85x7fy1"]
 
 [ext_resource type="PackedScene" uid="uid://d2b3l335oot1f" path="res://forest_ground.tscn" id="1_hbtf6"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_p8mch"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_8r2cy"]
 [ext_resource type="PackedScene" uid="uid://cplap5jy4535n" path="res://cylindre.tscn" id="6_in5hq"]
 
 [node name="main" type="Node3D"]
+script = ExtResource("1_p8mch")
 
 [node name="map" type="Node3D" parent="."]
 
@@ -13,10 +15,10 @@
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.556789, -0.524751, 0.643912, -2.80673e-08, 0.775187, 0.631732, -0.830654, -0.351741, 0.431616, -7.31008, 78.3321, 54.8904)
 
-[node name="cylindre" parent="." instance=ExtResource("6_in5hq")]
+[node name="cylindre" parent="." groups=["Persist"] instance=ExtResource("6_in5hq")]
 transform = Transform3D(-0.0336261, 0, 0.999434, 0, 1, 0, -0.999434, 0, -0.0336261, 0, 4.08379, 4.12786)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." groups=["Persist"]]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 10, 0)
 projection = 1
 current = true
