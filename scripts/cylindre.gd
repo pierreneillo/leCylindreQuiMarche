@@ -63,23 +63,25 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	if morph.name == "CYLINDER_UPRIGHT" :
-		var sens := 0
-		var direction = - cam.transform.basis.z.normalized()
-		direction=Vector3(direction.x,0,direction.z)
-		var previousDirection=direction
+		var factorfb := 0 # Facteur multiplicatif devant le vecteur de direction avancer/reculer
+		var factorlr := 0 # Facteur multiplicatif devant le vecteur de direction gauche/droite
+		var directionfb = - cam.transform.basis.z.normalized()
+		directionfb=Vector3(directionfb.x,0,directionfb.z)
+		var directionlr = directionfb.rotated(Vector3.UP,PI/2)
+		var previousDirection=directionfb
 		var vy = velocity.y
 		# Gestion du mouvement
 		if Input.is_action_pressed("forwards"):
-			sens = 1
+			factorfb = 1
 		elif Input.is_action_pressed("backwards"):
-			sens = -1
+			factorfb = -1
 		if Input.is_action_pressed("left"):
-			direction = direction.rotated(Vector3.UP, morph.rotation_speed * delta)
+			factorlr = 1
 		if Input.is_action_pressed("right"):
-			direction = direction.rotated(Vector3.UP, -morph.rotation_speed * delta)
-		transform.basis = Basis.looking_at(direction,Vector3.UP)
+			factorlr = -1
+		transform.basis = Basis.looking_at(directionfb,Vector3.UP)
 		
-		var target_velocity = sens * morph.max_speed  * direction.normalized()
+		var target_velocity = factorfb * morph.max_speed  * directionfb.normalized() + factorlr * morph.max_speed  * directionlr.normalized()
 		
 		velocity = velocity + (target_velocity - velocity) * delta / morph.inertia_time
 		

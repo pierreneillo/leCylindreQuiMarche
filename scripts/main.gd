@@ -70,9 +70,9 @@ func load_game():
 				continue
 			new_object.set(i, node_data[i])
 
-func _ready():
+func _ready() -> void:
 	load_game()
 	
-func _process():
+func _process(delta : float) -> void:
 	if Input.is_action_pressed("save"):
 		save_game()

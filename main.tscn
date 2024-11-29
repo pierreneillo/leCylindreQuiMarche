@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3yc8d85x7fy1"]
+[gd_scene load_steps=6 format=3 uid="uid://c3yc8d85x7fy1"]
 
 [ext_resource type="PackedScene" uid="uid://d2b3l335oot1f" path="res://forest_ground.tscn" id="1_hbtf6"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_p8mch"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_8r2cy"]
 [ext_resource type="PackedScene" uid="uid://cplap5jy4535n" path="res://cylindre.tscn" id="6_in5hq"]
+
+[sub_resource type="Environment" id="Environment_o6wmk"]
+ssao_enabled = true
+ssao_intensity = 0.1
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_p8mch")
@@ -25,5 +29,7 @@ current = true
 size = 14.625
 near = 0.001
 script = ExtResource("3_8r2cy")
-DIST_MAX = 50.0
-V_RPS = 0.5
+DIST_MIN = 3.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o6wmk")
