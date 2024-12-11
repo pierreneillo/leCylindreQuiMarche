@@ -34,3 +34,14 @@ DIST_MAX = 30.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o6wmk")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Dialog" type="Control" parent="HUD"]
+layout_mode = 3
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 226.8
+grow_horizontal = 2
+grow_vertical = 0
