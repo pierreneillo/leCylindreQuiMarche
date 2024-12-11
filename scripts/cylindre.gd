@@ -48,11 +48,11 @@ func _ready():
 			"INERTIA" : .2
 		},
 		"CYLINDER_ROLLING" : {
-			"MAX_SPEED" : 15,
+			"MAX_SPEED" : 45,
 			"SPEED":0,
 			"SPEED_INCR":1, #acceleration
 			"ROTATION_SPEED" : 30 * PI/180,
-			"INERTIA": .2
+			"INERTIA": 1
 		}
 	};
 	for morph_name in _morphs:
@@ -60,9 +60,16 @@ func _ready():
 		MORPHS.append(m)
 	morph = MORPHS[0]
 
-
+func wheelspawn(delta:float) -> void:
+	
+func wheeldespawn(delta:float) -> void:
+	
 func _physics_process(delta: float) -> void:
-	if morph.name == "CYLINDER_UPRIGHT" :
+	if Input.is_action_just_pressed("wheel"):
+		wheelspawn(delta)
+	if Input.is_action_just_released("wheel"):
+		wheeldespawn(delta)
+	if morph.name == "CYLINDER_UPRIGHT" or morph.name == "CYLINDER_ROLLING":
 		var factorfb := 0 # Facteur multiplicatif devant le vecteur de direction avancer/reculer
 		var factorlr := 0 # Facteur multiplicatif devant le vecteur de direction gauche/droite
 		var directionfb = - cam.transform.basis.z.normalized()
@@ -90,5 +97,6 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide()
 		morph.move()
+		
 	else:
 		pass	

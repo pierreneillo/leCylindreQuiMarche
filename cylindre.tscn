@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cplap5jy4535n"]
+[gd_scene load_steps=8 format=3 uid="uid://cplap5jy4535n"]
 
 [ext_resource type="PackedScene" uid="uid://brrhmirfuit43" path="res://cylindre.fbx" id="1_0nm7y"]
 [ext_resource type="Script" path="res://scripts/cylindre.gd" id="1_fdmvk"]
@@ -9,6 +9,68 @@ radius = 0.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1jbc"]
 size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="Animation" id="Animation_b06ff"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_glo4j"]
+resource_name = "vertical_to_horizontal"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 1.5),
+"transitions": PackedFloat32Array(1.86606, 1.86606),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 1.5),
+"transitions": PackedFloat32Array(1.86606, 1.86606),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.4, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e6xd7"]
+_data = {
+"RESET": SubResource("Animation_b06ff"),
+"vertical_to_horizontal": SubResource("Animation_glo4j")
+}
 
 [node name="cylindre" type="CharacterBody3D"]
 collision_mask = 3
@@ -24,3 +86,8 @@ shape = SubResource("CylinderShape3D_x814m")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, -0.5)
 mesh = SubResource("BoxMesh_e1jbc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e6xd7")
+}
