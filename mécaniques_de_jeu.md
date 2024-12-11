@@ -47,6 +47,11 @@ Quêtes secondaires, dialogues simples avec des png
 
 A réfléchir
 
+## Persos
+
+Forme des persos en fonction de leur "classe sociale": plus près de la sphère => plus haut dans la hiérarchie
+(Tous des sphères dans blender sauf )
+
 ## Monde
 
 - [G & P] Réfléchir à comment la caméra suit le perso
