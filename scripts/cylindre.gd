@@ -61,8 +61,10 @@ func _ready():
 	morph = MORPHS[0]
 
 func wheelspawn(delta:float) -> void:
+	pass
 	
 func wheeldespawn(delta:float) -> void:
+	pass
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("wheel"):
