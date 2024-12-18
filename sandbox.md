@@ -28,23 +28,23 @@ C :
 - Oui
 - Non
 Si non:
-    T : Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.
-    T : Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.
-    T : Je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé
+	T : Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.
+	T : Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.
+	T : Je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé
 Si oui:
-    T : Très bien, je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé
+	T : Très bien, je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé
 
 
 
 Si il revient sans l'avoir fait:
 T : Va donc résoudre mon énigme.
 C:
-    - Très bien => fin dialogue
-    - J'ai besoin d'indices
-        T : Peut-être peux-tu utiliser ta compétence nouvellement acquise TODO: changer le dialogue s'il n'a pas acquis la compétence
-    - Dis-m'en plus sur vos coutumes
-        T : Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.
-        T : Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.
+	- J'ai besoin d'indices
+		T : Peut-être peux-tu utiliser ta compétence nouvellement acquise TODO: changer le dialogue s'il n'a pas acquis la compétence
+	- Dis-m'en plus sur vos coutumes
+		T : Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.
+		T : Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.
+	- Très bien => fin dialogue
 
 Si il revient en l'ayant fait:
 T : Bravo! Tu es maintenant prêt pour braver les dangers de notre monde

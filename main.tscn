@@ -5,10 +5,12 @@
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_8r2cy"]
 [ext_resource type="Script" path="res://hud.gd" id="5_8t4m5"]
 [ext_resource type="PackedScene" uid="uid://okyaarby1nbb" path="res://selection_wheel.tscn" id="5_nya4v"]
+[ext_resource type="FontFile" uid="uid://csef20qfea2ue" path="res://fonts/NewRocker-Regular.otf" id="5_4hlrq"]
 [ext_resource type="PackedScene" uid="uid://cplap5jy4535n" path="res://cylindre.tscn" id="6_in5hq"]
 [ext_resource type="Script" path="res://wheel_options.gd" id="7_rmi4b"]
 [ext_resource type="Texture2D" uid="uid://bi0uiplj1ibx8" path="res://DALL·E-2024-12-16-17.02.jpg" id="8_b51nc"]
 [ext_resource type="Texture2D" uid="uid://bidn01e1hl5ho" path="res://DALL·E-2024-12-16-17.02_1.jpg" id="9_hv77n"]
+[ext_resource type="Script" path="res://dialog.gd" id="6_x1b1b"]
 
 [sub_resource type="Environment" id="Environment_o6wmk"]
 ssao_enabled = true
@@ -23,6 +25,23 @@ name = "CYLINDER_UPRIGHT"
 atlas = ExtResource("9_hv77n")
 script = ExtResource("7_rmi4b")
 name = "CYLINDER_ROLLING"
+
+[sub_resource type="Gradient" id="Gradient_n4vih"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l72qf"]
+gradient = SubResource("Gradient_n4vih")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8txi6"]
+texture = SubResource("GradientTexture1D_l72qf")
+
+[sub_resource type="Theme" id="Theme_vlqpw"]
+Label/font_sizes/font_size = 21
+Label/fonts/font = ExtResource("5_4hlrq")
+Panel/styles/panel = SubResource("StyleBoxTexture_8txi6")
+RichTextLabel/colors/default_color = Color(0.733005, 0.733005, 0.733005, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 0.447712, 0.218802, 1)
+RichTextLabel/constants/line_separation = 3
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_p8mch")
@@ -55,10 +74,140 @@ script = ExtResource("5_8t4m5")
 
 [node name="Dialog" type="Control" parent="HUD"]
 layout_mode = 3
-anchor_top = 0.667
+anchor_left = 0.2
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 0.95
+offset_top = -0.216003
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 1
+theme = SubResource("Theme_vlqpw")
+script = ExtResource("6_x1b1b")
+
+[node name="MainTextContainer" type="Control" parent="HUD/Dialog"]
+layout_mode = 1
+anchor_right = 0.75
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Box" type="Panel" parent="HUD/Dialog/MainTextContainer"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 226.8
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LayoutContainer" type="VBoxContainer" parent="HUD/Dialog/MainTextContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeakerName" type="Label" parent="HUD/Dialog/MainTextContainer/LayoutContainer"]
+layout_mode = 2
+text = "Somebody"
+vertical_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="HUD/Dialog/MainTextContainer/LayoutContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet sem gravida, viverra sapien at, porta nulla. Mauris condimentum, nisi et auctor cursus, risus elit ultrices mi, ut commodo purus tortor sit amet leo. Maecenas in elit semper, scelerisque velit quis, sollicitudin sapien. "
+fit_content = true
+scroll_active = false
+tab_size = 8
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Answers" type="Control" parent="HUD/Dialog"]
+layout_mode = 1
+anchor_left = 0.758
+anchor_top = -0.131
+anchor_right = 0.992
+anchor_bottom = 1.106
+offset_left = 0.427185
+offset_top = 0.0515995
+offset_right = -0.227234
+offset_bottom = -0.0615845
+
+[node name="Answer1" type="Panel" parent="HUD/Dialog/Answers"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+offset_bottom = 0.0969963
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Dialog/Answers/Answer1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Answer2" type="Panel" parent="HUD/Dialog/Answers"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.45
+offset_bottom = 0.0969963
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Dialog/Answers/Answer2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Answer3" type="Panel" parent="HUD/Dialog/Answers"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.7
+offset_bottom = 0.0969963
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Dialog/Answers/Answer3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Answer4" type="Panel" parent="HUD/Dialog/Answers"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.75
+anchor_right = 1.0
+anchor_bottom = 0.95
+offset_bottom = 0.0969963
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Dialog/Answers/Answer4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.59998
+offset_top = 59.0
+offset_right = 1.59998
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 0
 
