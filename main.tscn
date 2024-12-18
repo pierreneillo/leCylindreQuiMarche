@@ -1,13 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3yc8d85x7fy1"]
+[gd_scene load_steps=13 format=3 uid="uid://c3yc8d85x7fy1"]
 
 [ext_resource type="PackedScene" uid="uid://d2b3l335oot1f" path="res://forest_ground.tscn" id="1_hbtf6"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_p8mch"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_8r2cy"]
+[ext_resource type="Script" path="res://hud.gd" id="5_8t4m5"]
+[ext_resource type="PackedScene" uid="uid://okyaarby1nbb" path="res://selection_wheel.tscn" id="5_nya4v"]
 [ext_resource type="PackedScene" uid="uid://cplap5jy4535n" path="res://cylindre.tscn" id="6_in5hq"]
+[ext_resource type="Script" path="res://wheel_options.gd" id="7_rmi4b"]
+[ext_resource type="Texture2D" uid="uid://bi0uiplj1ibx8" path="res://DALL·E-2024-12-16-17.02.jpg" id="8_b51nc"]
+[ext_resource type="Texture2D" uid="uid://bidn01e1hl5ho" path="res://DALL·E-2024-12-16-17.02_1.jpg" id="9_hv77n"]
 
 [sub_resource type="Environment" id="Environment_o6wmk"]
 ssao_enabled = true
 ssao_intensity = 0.1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryr17"]
+atlas = ExtResource("8_b51nc")
+script = ExtResource("7_rmi4b")
+name = "CYLINDER_UPRIGHT"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1dms"]
+atlas = ExtResource("9_hv77n")
+script = ExtResource("7_rmi4b")
+name = "CYLINDER_ROLLING"
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_p8mch")
@@ -20,7 +35,7 @@ script = ExtResource("1_p8mch")
 transform = Transform3D(0.556789, -0.524751, 0.643912, -2.80673e-08, 0.775187, 0.631732, -0.830654, -0.351741, 0.431616, -7.31008, 78.3321, 54.8904)
 
 [node name="cylindre" parent="." groups=["Persist"] instance=ExtResource("6_in5hq")]
-transform = Transform3D(-0.0336261, 0, 0.999434, 0, 1, 0, -0.999434, 0, -0.0336261, 0, 4.08379, 4.12786)
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." groups=["Persist"]]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 10, 0)
@@ -36,6 +51,7 @@ DIST_MAX = 30.0
 environment = SubResource("Environment_o6wmk")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_8t4m5")
 
 [node name="Dialog" type="Control" parent="HUD"]
 layout_mode = 3
@@ -45,3 +61,11 @@ anchor_bottom = 1.0
 offset_top = 226.8
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="SelectionWheel" parent="HUD" instance=ExtResource("5_nya4v")]
+highlight_color = Color(0.691357, 0.691357, 0.691357, 0.392157)
+outer_radius = 400
+inner_radius = 150
+options = Array[ExtResource("7_rmi4b")]([SubResource("AtlasTexture_ryr17"), SubResource("AtlasTexture_l1dms")])
+
+[connection signal="forme_changed" from="HUD" to="cylindre" method="_on_hud_forme_changed"]

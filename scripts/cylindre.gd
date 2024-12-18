@@ -6,6 +6,7 @@ var morph = 0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var cam=null
 var dirCam=null
+var wheel=null
 
 
 
@@ -35,6 +36,8 @@ class Morph:
 	func move() -> void:
 		pass
 
+
+
 func _ready():
 	cam= get_node("../Camera3D")
 	print(cam)
@@ -60,15 +63,16 @@ func _ready():
 		MORPHS.append(m)
 	morph = MORPHS[0]
 
-func wheelspawn(delta:float) -> void:
-	
-func wheeldespawn(delta:float) -> void:
-	
+func _on_hud_forme_changed(new_value: Variant) -> void:
+	var ancien=morph.name
+	morph.name=new_value
+	if ancien!=morph.name:
+		if ancien=="CYLINDER_UPRIGHT" and morph.name=="CYLINDER_ROLLING":
+			$AnimationPlayer.play("vertical_to_horizontal")
+		elif ancien=="CYLINDER_ROLLING" and morph.name=="CYLINDER_UPRIGHT":
+			$AnimationPlayer.play("horizontal_to_vertical")
+
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("wheel"):
-		wheelspawn(delta)
-	if Input.is_action_just_released("wheel"):
-		wheeldespawn(delta)
 	if morph.name == "CYLINDER_UPRIGHT" or morph.name == "CYLINDER_ROLLING":
 		var factorfb := 0 # Facteur multiplicatif devant le vecteur de direction avancer/reculer
 		var factorlr := 0 # Facteur multiplicatif devant le vecteur de direction gauche/droite
