@@ -8,3 +8,7 @@
 - Instancier les arbres sur la map
 - \[GROS TRUC\] Réfléchir à des dynamiques de jeu (aventure), faire un diagramme/arbre de l'aventure
 - Créer une heightMap correcte (i.e. pas plate)
+
+## Known issues
+- Le cylindre passe à travers la map
+- la collision shape du sol n'a pas été update avec le nouveau sapin

@@ -36,8 +36,9 @@ class Morph:
 		pass
 
 func _ready():
+	print(position)
+	position = Vector3(0,5,0)
 	cam= get_node("../Camera3D")
-	print(cam)
 	dirCam=cam.position
 	const _morphs = {
 		"CYLINDER_UPRIGHT" : {
