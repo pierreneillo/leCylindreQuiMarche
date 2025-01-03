@@ -68,9 +68,9 @@ func _on_hud_forme_changed(new_value: Variant) -> void:
 	morph.name=new_value
 	if ancien!=morph.name:
 		if ancien=="CYLINDER_UPRIGHT" and morph.name=="CYLINDER_ROLLING":
-			$AnimationPlayer.play("vertical_to_horizontal")
+			$corps/AnimationPlayer.play("vertical_to_horizontal")
 		elif ancien=="CYLINDER_ROLLING" and morph.name=="CYLINDER_UPRIGHT":
-			$AnimationPlayer.play("horizontal_to_vertical")
+			$corps/AnimationPlayer.play("horizontal_to_vertical")
 
 func _physics_process(delta: float) -> void:
 	if morph.name == "CYLINDER_UPRIGHT" or morph.name == "CYLINDER_ROLLING":
