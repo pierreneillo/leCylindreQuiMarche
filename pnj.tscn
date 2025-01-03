@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwar0hqksuvro"]
+
+[ext_resource type="PackedScene" uid="uid://qij5jbkv2gup" path="res://tarik.blend" id="1_tg0fr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c17xl"]
+radius = 0.90948
+
+[node name="PNJ" type="CharacterBody3D"]
+
+[node name="tarik" parent="." instance=ExtResource("1_tg0fr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_c17xl")

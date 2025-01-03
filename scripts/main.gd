@@ -1,5 +1,17 @@
 extends Node3D
 
+# Signaux "globaux" 
+
+# Pour interrompre complètement le déroulement du jeu
+# Pour l'instant, uniquement pour la roulette de sélection de la forme
+signal hud_active
+
+# Pour déclarer une conversation avec un pnj
+# Censé freezer tout sauf éventuellement le pnj
+signal conversation_with(pnj:String)
+
+
+
 # Note: This can be called from anywhere inside the tree. This function is
 # path independent.
 # Go through everything in the persist category and ask them to return a

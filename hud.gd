@@ -16,5 +16,5 @@ func _process(delta: float) -> void:
 		$SelectionWheel.show()
 	if Input.is_action_just_released("wheel"):
 		var forme = $SelectionWheel.Close()
-		emit_signal("forme_changed",forme)
+		forme_changed.emit(forme)
 	

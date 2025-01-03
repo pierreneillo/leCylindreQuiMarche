@@ -39,7 +39,6 @@ class Morph:
 
 
 func _ready():
-	print(position)
 	position = Vector3(0,5,0)
 	cam= get_node("../Camera3D")
 	dirCam=cam.position

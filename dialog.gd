@@ -20,8 +20,8 @@ var action = null # Pour stocker l'action suivante (en cas d'affichage simple de
 func _ready() -> void:
 	hide()
 	#display_simple_text("Tarik","Ta condition physique me semble peu adaptée pour certaines de nos contrées, il te faudra aussi remédier à cela.")
-	display_question("Tarik","Est-tu familier avec nos coutumes?",[["Oui","display_simple_text","Tarik","Très bien, je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé",["hide"]],["Non","display_simple_text","Tarik","Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.", ["display_simple_text","Tarik","Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.",["display_simple_text","Tarik","Je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé",["hide"]]]]])
 	# display_question("Tarik","Es-tu familer avec nos coutumes?",[["Bien sûr"],["Non, pas vraiment"]])
+	# display_question("Tarik","Est-tu familier avec nos coutumes?",[["Oui","display_simple_text","Tarik","Très bien, je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé",["hide"]],["Non","display_simple_text","Tarik","Les habitants du pays aiment se poser mutuellement des énigmes, il te faudra sûrement en résoudre au cours de ton périple.", ["display_simple_text","Tarik","Tu verras, parfois les choses ne marchent pas, ne fonctionnent pas, ne te décourage pas et fais tourner tes méninges, je suis persuadé que tu y arriveras.",["display_simple_text","Tarik","Je t'ai préparé une petite énigme à résoudre, reviens me voir quand tu auras terminé",["hide"]]]]])
 	confirmed.connect(_on_confirmed)
 	answered.connect(_on_answered)
 
@@ -32,11 +32,11 @@ func display_simple_text(speaker:String, text:String, _action:Array) -> void:
 	$MainTextContainer/LayoutContainer/Text.text = text
 	$MainTextContainer/LayoutContainer/Text.visible_characters = 0
 	action = _action
-	print(action)
 	actual_chars = 0
 	IS_QUESTION = false
 	AWAITING_CONFIRMATION = false
 	BEING_DISPLAYED = true
+	print("Text box generated")
 
 func display_question(speaker: String,text : String,options:Array):
 	show()
@@ -48,7 +48,6 @@ func display_question(speaker: String,text : String,options:Array):
 	AWAITING_ANSWER = false
 	BEING_DISPLAYED = true
 	answers = options
-	print(answers)
 
 func generate_answers():
 	# On arrange les réponse comme ça nous arrange (nombre et texte)
@@ -75,9 +74,9 @@ func generate_answers():
 
 func _on_answered(answer_num):
 	AWAITING_ANSWER = false
-	print(answer_num)
 	if answer_num < len(answers) and len(answers[answer_num]) > 1:
 		# There is a callable
+		print("Calling next action for answer n°",answer_num)
 		callv(answers[answer_num][1],answers[answer_num].slice(2))
 	# Else we exit
 	
@@ -85,7 +84,6 @@ func _on_confirmed():
 	if AWAITING_CONFIRMATION:
 		AWAITING_CONFIRMATION = false
 		if action:
-			print(action)
 			print("Calling next action")
 			# There is a callable
 			if len(action) >= 2:
@@ -116,6 +114,7 @@ func _process(delta: float) -> void:
 			$MainTextContainer/LayoutContainer/Text.visible_characters = -1
 			BEING_DISPLAYED = false
 			if IS_QUESTION:
+				print("This is a question")
 				generate_answers()
 				AWAITING_ANSWER = true
 			else:

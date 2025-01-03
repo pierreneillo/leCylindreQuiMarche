@@ -6,6 +6,12 @@
 
 [node name="forest_ground" instance=ExtResource("1_ah52n")]
 
+[node name="Plane" parent="." index="0"]
+layers = 4
+
+[node name="Sapin" parent="." index="1"]
+visible = false
+
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." index="2"]
 visible = false
 mesh = ExtResource("2_vqal5")

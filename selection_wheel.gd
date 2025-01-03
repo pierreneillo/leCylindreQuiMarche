@@ -20,6 +20,9 @@ func Close():
 	hide()
 	return options[selection].name
 
+func _ready():
+	hide()
+
 # Called when the node enters the scene tree for the first time.
 func _draw() -> void:
 	var offset = SPRITE_SIZE/-2
