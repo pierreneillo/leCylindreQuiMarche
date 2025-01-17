@@ -90,8 +90,6 @@ current = true
 size = 14.625
 near = 0.001
 script = ExtResource("3_8r2cy")
-DIST_MIN = 10.0
-DIST_MAX = 30.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o6wmk")

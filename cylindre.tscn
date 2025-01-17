@@ -122,3 +122,5 @@ shape = SubResource("CylinderShape3D_x814m")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, -0.5)
 mesh = SubResource("BoxMesh_e1jbc")
+
+[connection signal="animation_finished" from="corps/AnimationPlayer" to="." method="_on_anim_finished"]
